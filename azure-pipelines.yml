@@ -5,22 +5,19 @@
 
 trigger:
 - main
-- UAT
-- Development
 
 pool:
-  name: Self Hosted Agent
+  Default
 
 steps:
 - task: UiPathPack@3
   inputs:
     versionType: 'AutoVersion'
     projectJsonPath: '$(Build.SourcesDirectory)'
-    orchestratorConnection: 'UiPathOrchestrator_CICD_Prod_Americas'
+    orchestratorConnection: 'Uipath_orch'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
-
-- task: PublishBuildArtifacts@1
+- task: UiPathDeploy@4
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'AMCA_TX_CAN_Tiger_Tax_Report_REF'
-    publishLocation: 'Container'
+    orchestratorConnection: 'Uipath_orch'
+    packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
+    folderName: 'Test_folder'
