@@ -16,8 +16,8 @@ steps:
     projectJsonPath: '$(Build.SourcesDirectory)'
     orchestratorConnection: 'Uipath_orch'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
-- task: UiPathDeploy@4
+- task: PublishBuildArtifacts@1
   inputs:
-    orchestratorConnection: 'Uipath_orch'
-    packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-    folderName: 'Test_folder'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Output'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
